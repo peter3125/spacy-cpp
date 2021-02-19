@@ -10,8 +10,8 @@ SOURCE := src/spacy/attrs.cpp \
           src/spacy/token.cpp \
           src/spacy/vocab.cpp \
           src/spacy/spacy_if.cpp \
-          src/utility/memory_manager.c \
-          src/utility/array_list.c
+          src/utility/memory_manager.cpp \
+          src/utility/array_list.cpp
 
 OBJ := obj/attrs.o obj/nlp.o obj/python.o obj/span.o obj/doc.o obj/pyobjectptr.o obj/array_list.o \
        obj/spacy.o obj/stringstore.o obj/token.o obj/vocab.o obj/spacy_if.o obj/memory_manager.o
@@ -28,7 +28,7 @@ C_INCLUDE_PATH := /usr/include/python3.8
 build :
 	mkdir -p obj
 	rm -f *.o obj/*.o *.so
-	gcc -I$(C_INCLUDE_PATH) $(SOURCE) -c -fPIC
+	gcc -I$(C_INCLUDE_PATH) $(SOURCE) -c -fPIC -fpermissive
 	mv *.o ./obj/
 	gcc -shared -o spacy.so -Wl,-rpath,$(LIB_PATH) -lm -lpthread -lstdc++ $(OBJ)
 	#cp *.so ../../../resources/libs/

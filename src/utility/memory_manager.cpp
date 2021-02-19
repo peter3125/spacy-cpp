@@ -68,16 +68,16 @@ void memPut(MemoryManager* mgr, long keyValue, int data) {
 
 // create a new memory manager
 MemoryManager* p_create(int initialCapacity) {
-    MemoryManager* mgr = calloc(1, sizeof(MemoryManager));
+    MemoryManager* mgr = (MemoryManager*)calloc(1, sizeof(MemoryManager));
     mgr->size = 0;
     mgr->dataSize = initialCapacity;
-    mgr->list = calloc(initialCapacity, sizeof(void*));
-    mgr->allocatedSize = calloc(initialCapacity, sizeof(int));
+    mgr->list = (void**)calloc(initialCapacity, sizeof(void*));
+    mgr->allocatedSize = (int*)calloc(initialCapacity, sizeof(int));
 
     // reverse lookup;  void* -> int offset into list
     mgr->mapSize = ((initialCapacity * 3) / 2) + 1;
-    mgr->keyArray = calloc(mgr->mapSize, sizeof(long));
-    mgr->dataArray = calloc(mgr->mapSize, sizeof(int));
+    mgr->keyArray = (long*)calloc(mgr->mapSize, sizeof(long));
+    mgr->dataArray = (int*)calloc(mgr->mapSize, sizeof(int));
     for (int i = 0; i < mgr->mapSize; i++) {
         mgr->keyArray[i] = -1L;
         mgr->dataArray[i] = -1;
@@ -87,15 +87,15 @@ MemoryManager* p_create(int initialCapacity) {
 
 // grow a list 50%
 void memGrow(MemoryManager* mgr, int newSize) {
-    void** newList = calloc(newSize, sizeof(void*));
+    void** newList = (void**)calloc(newSize, sizeof(void*));
     assert(newList != NULL);
-    int* newAllocatedSize = calloc(newSize, sizeof(int));
+    int* newAllocatedSize = (int*)calloc(newSize, sizeof(int));
     assert(newAllocatedSize != NULL);
 
     int newMapSize = ((newSize * 3) / 2) + 1;
-    long* newKeyArray = calloc(newMapSize, sizeof(long));
+    long* newKeyArray = (long*)calloc(newMapSize, sizeof(long));
     assert(newKeyArray != NULL);
-    int* newDataArray = calloc(newMapSize, sizeof(int));
+    int* newDataArray = (int*)calloc(newMapSize, sizeof(int));
     assert(newDataArray != NULL);
 
     for (int i = 0; i < newMapSize; i++) {

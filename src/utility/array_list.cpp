@@ -7,17 +7,17 @@
 
 // create a new list
 ArrayList* listCreate(int initialCapacity, MemoryManager* mgr) {
-    ArrayList* list = p_alloc(mgr, 1, sizeof(ArrayList));
+    ArrayList* list = (ArrayList*)p_alloc(mgr, 1, sizeof(ArrayList));
     list->mgr = mgr;
     list->size = 0;
     list->dataSize = initialCapacity;
-    list->list = p_alloc(mgr, initialCapacity, sizeof(void*));
+    list->list = (void**)p_alloc(mgr, initialCapacity, sizeof(void*));
     return list;
 }
 
 // grow a list 50%
 void growList(ArrayList* list, int newSize) {
-    void** newList = p_alloc(list->mgr, newSize, sizeof(void*));
+    void** newList = (void**)p_alloc(list->mgr, newSize, sizeof(void*));
     for (int i = 0; i < list->size; i++) {
         newList[i] = list->list[i];
     }
