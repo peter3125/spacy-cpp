@@ -11,6 +11,7 @@
 #include "span.h"
 #include "../utility/memory_manager.h"
 #include "../utility/array_list.h"
+#include "../utility/string_builder.h"
 
 
 // global allocated class
@@ -60,31 +61,53 @@ ArrayList* largeTextToList(const char* _text, int maxLength, MemoryManager* mgr)
  */
 extern "C" const char* parse(const char* text) {
     if (text != nullptr) {
-        MemoryManager* mgr = p_create(250000);
+        MemoryManager* mgr = p_create(2500);
         ArrayList* list = largeTextToList(text, 20000, mgr);
-        std::cout << "[";
+        StringBuilder* sb = sb_create(mgr, 163840);
+        append(sb, "[", mgr);
         for (int i = 0; i < list->size; i++) {
             const char* text1 = (const char*)list->list[i];
             auto docs = nlp.parse(text1);
-            std::cout << "[";
+            append(sb, "[", mgr);
             for (auto& sentence : docs.sents()) {
                 for (auto &token : sentence.tokens()) {
-                    std::cout << "{";
-                    std::cout << "\"token\":" << "\"" << token.text() << "\",";
-                    std::cout << "\"i\":" << "\"" << token.i() << "\",";
-                    std::cout << "\"tag\":" << "\"" << token.tag_() << "\",";
-                    std::cout << "\"dep\":" << "\"" << token.dep_() << "\",";
-                    std::cout << "\"lemma\":" << "\"" << token.lemma_() << "\",";
-                    std::cout << "\"left\":" << "\"" << token.left_edge().i() << "\",";
-                    std::cout << "\"right\":" << "\"" << token.right_edge().i() << "\",";
-                    std::cout << "\"root\":" << "\"" << token.head().i() << "\",";
-                    std::cout << "},";
+                    append(sb, "{", mgr);
+
+                    append(sb, "\"token\":", mgr);
+                    append(sb, "\"", mgr);
+                    append(sb, token.text().c_str(), mgr);
+                    append(sb, "\",", mgr);
+
+                    append(sb, "\"i\":", mgr);
+                    append(sb, token.i(), mgr);
+                    append(sb, ",", mgr);
+
+                    append(sb, "\"tag\":", mgr);
+                    append(sb, "\"", mgr);
+                    append(sb, token.tag_().c_str(), mgr);
+                    append(sb, "\",", mgr);
+
+                    append(sb, "\"dep\":", mgr);
+                    append(sb, "\"", mgr);
+                    append(sb, token.dep_().c_str(), mgr);
+                    append(sb, "\",", mgr);
+
+                    append(sb, "\"lemma\":", mgr);
+                    append(sb, "\"", mgr);
+                    append(sb, token.lemma_().c_str(), mgr);
+                    append(sb, "\",", mgr);
+
+                    append(sb, "},", mgr);
                 }
             }
-            std::cout << "],";
+            append(sb, "],", mgr);
         }
-        std::cout << "]";
+        append(sb, "]", mgr);
+
+        const char* str = toString(sb);
         p_destroy(mgr);
+        return str;
     }
     return "";
 }
+
