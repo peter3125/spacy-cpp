@@ -38,3 +38,8 @@ build :
 
 clean :
 	rm -f *.o obj/*.o spacy.so
+
+test :
+	rm -f *.o obj/*.o *.so
+	gcc -I$(C_INCLUDE_PATH) $(SOURCE) src/spacy/unit_test.cpp -o unit_test -Wl,-rpath,$(LIB_PATH) -Wl,-Bdynamic /usr/lib/x86_64-linux-gnu/libpython3.8.so.1 -lm -lpthread -lstdc++
+	./unit_test
