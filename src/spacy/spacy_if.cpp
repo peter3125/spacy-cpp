@@ -70,7 +70,14 @@ extern "C" const char* parse(const char* text) {
             for (auto& sentence : docs.sents()) {
                 for (auto &token : sentence.tokens()) {
                     std::cout << "{";
-                    std::cout << "\"token:\"" << "\"" << token.text() << "\"";
+                    std::cout << "\"token\":" << "\"" << token.text() << "\",";
+                    std::cout << "\"i\":" << "\"" << token.i() << "\",";
+                    std::cout << "\"tag\":" << "\"" << token.tag_() << "\",";
+                    std::cout << "\"dep\":" << "\"" << token.dep_() << "\",";
+                    std::cout << "\"lemma\":" << "\"" << token.lemma_() << "\",";
+                    std::cout << "\"left\":" << "\"" << token.left_edge().i() << "\",";
+                    std::cout << "\"right\":" << "\"" << token.right_edge().i() << "\",";
+                    std::cout << "\"root\":" << "\"" << token.head().i() << "\",";
                     std::cout << "},";
                 }
             }
