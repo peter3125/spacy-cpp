@@ -51,19 +51,28 @@ void append(StringBuilder* sb, long value, MemoryManager* mgr) {
 }
 
 
-const char* toString(StringBuilder* sb) {
-    if (sb != nullptr && sb->size > 0) {
-        char* str = (char*)calloc(sb->size, sizeof(char));
-        strcpy(str, sb->data);
-        return str;
-    }
-    return "";
+// write an int
+void writeInt(unsigned char* data, unsigned int value, int index) {
+    data[index] = (unsigned char)(value & 0xff);
+    data[index + 1] = (unsigned char)((value >> 8) & 0xff);
+    data[index + 2] = (unsigned char)((value >> 16) & 0xff);
+    data[index + 3] = (unsigned char)((value >> 24) & 0xff);
 }
 
 
-extern "C" void freeString(const char* str) {
-    if (str != nullptr) {
-        free((void*)str);
+const char* toString(StringBuilder* sb) {
+    if (sb != nullptr && sb->size > 0) {
+        char* str = (char*)calloc(sb->size, sizeof(unsigned char));
+        strcpy(str, sb->data);
+        return (char*)str;
+    }
+    return nullptr;
+}
+
+
+extern "C" void freePointer(void* pointer) {
+    if (pointer != nullptr) {
+        freePointer(pointer);
     }
 }
 

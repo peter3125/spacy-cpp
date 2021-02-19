@@ -28,6 +28,6 @@ void append(StringBuilder* sb, long value, MemoryManager* mgr);
 const char* toString(StringBuilder* sb);
 
 // remove memory allocated by calloc
-extern "C" void freeString(const char* str);
+extern "C" void freePointer(void* pointer);
 
 #endif //JNA_STRING_BUILDER_H

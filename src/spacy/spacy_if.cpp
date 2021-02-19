@@ -59,7 +59,7 @@ ArrayList* largeTextToList(const char* _text, int maxLength, MemoryManager* mgr)
 /**
  * parse a string using spacy
  */
-extern "C" const char* parse(const char* text) {
+extern "C" void* parse(const char* text) {
     if (text != nullptr) {
         MemoryManager* mgr = p_create(2500);
         ArrayList* list = largeTextToList(text, 20000, mgr);
@@ -106,8 +106,8 @@ extern "C" const char* parse(const char* text) {
 
         const char* str = toString(sb);
         p_destroy(mgr);
-        return str;
+        return (void*)str;
     }
-    return "";
+    return nullptr;
 }
 
