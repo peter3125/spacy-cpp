@@ -20,8 +20,8 @@ auto nlp = spacy.load("en_core_web_sm");
 
 
 // helper - split a string beyond size maxLength into smaller chunks
-ArrayList* largeTextToList(const char* _text, int maxLength, MemoryManager* mgr) {
-    char* text = (char*)_text;
+ArrayList* largeTextToList(char* _text, int maxLength, MemoryManager* mgr) {
+    char* text = _text;
     int len = strlen(text);
     ArrayList* list = listCreate((len / maxLength) + 20, mgr);
     int maxLength90pc = (maxLength - (maxLength / 10));
@@ -62,7 +62,7 @@ ArrayList* largeTextToList(const char* _text, int maxLength, MemoryManager* mgr)
 extern "C" void* parse(const char* text) {
     if (text != nullptr) {
         MemoryManager* mgr = p_create(2500);
-        ArrayList* list = largeTextToList(text, 20000, mgr);
+        ArrayList* list = largeTextToList((char*)text, 20000, mgr);
         StringBuilder* sb = sb_create(mgr, 163840);
         append(sb, "[", mgr);
         for (int i = 0; i < list->size; i++) {

@@ -51,15 +51,6 @@ void append(StringBuilder* sb, long value, MemoryManager* mgr) {
 }
 
 
-// write an int
-void writeInt(unsigned char* data, unsigned int value, int index) {
-    data[index] = (unsigned char)(value & 0xff);
-    data[index + 1] = (unsigned char)((value >> 8) & 0xff);
-    data[index + 2] = (unsigned char)((value >> 16) & 0xff);
-    data[index + 3] = (unsigned char)((value >> 24) & 0xff);
-}
-
-
 const char* toString(StringBuilder* sb) {
     if (sb != nullptr && sb->size > 0) {
         char* str = (char*)calloc(sb->size, sizeof(unsigned char));

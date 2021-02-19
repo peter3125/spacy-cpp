@@ -38,7 +38,10 @@ add_library(spacy SHARED
   src/spacy/stringstore.cpp
   src/spacy/token.cpp
   src/spacy/vocab.cpp
-        src/spacy/spacy_if.cpp src/utility/string_builder.cpp)
+  src/spacy/spacy_if.cpp
+  src/utility/memory_manager.cpp
+  src/utility/array_list.cpp
+  src/utility/string_builder.cpp)
 install(TARGETS spacy LIBRARY DESTINATION lib)
 set_target_properties(spacy PROPERTIES LINK_FLAGS "-fPIC")
 include_directories(${PYTHON_INCLUDE_DIRS})
@@ -57,6 +60,10 @@ install(FILES
   src/spacy/stringstore.h
   src/spacy/token.h
   src/spacy/vocab.h
+  src/spacy/spacy_if.h
+  src/utility/string_builder.h
+  src/utility/memory_manager.h
+  src/utility/array_list.h
   DESTINATION include/spacy)
 
 # Tests
@@ -86,3 +93,4 @@ add_spacy_test(vocab)
 add_spacy_test(stringstore)
 add_spacy_test(span)
 add_spacy_test(token)
+add_spacy_test(spacy_if)
