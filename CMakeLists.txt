@@ -38,7 +38,7 @@ add_library(spacy SHARED
   src/spacy/stringstore.cpp
   src/spacy/token.cpp
   src/spacy/vocab.cpp
-  )
+        src/spacy/spacy_if.cpp)
 install(TARGETS spacy LIBRARY DESTINATION lib)
 set_target_properties(spacy PROPERTIES LINK_FLAGS "-fPIC")
 include_directories(${PYTHON_INCLUDE_DIRS})

@@ -8,10 +8,13 @@ SOURCE := src/spacy/attrs.cpp \
           src/spacy/spacy.cpp \
           src/spacy/stringstore.cpp \
           src/spacy/token.cpp \
-          src/spacy/vocab.cpp
+          src/spacy/vocab.cpp \
+          src/spacy/spacy_if.cpp \
+          src/utility/memory_manager.c \
+          src/utility/array_list.c
 
-OBJ := obj/attrs.o obj/nlp.o obj/python.o obj/span.o obj/doc.o obj/pyobjectptr.o \
-       obj/spacy.o obj/stringstore.o obj/token.o obj/vocab.o
+OBJ := obj/attrs.o obj/nlp.o obj/python.o obj/span.o obj/doc.o obj/pyobjectptr.o obj/array_list.o \
+       obj/spacy.o obj/stringstore.o obj/token.o obj/vocab.o obj/spacy_if.o obj/memory_manager.o
 
 # build from https://github.com/datastax/cpp-driver.git;  cmake .. -DCASS_BUILD_STATIC='OFF'
 CPLUS_INCLUDE_PATH := /usr/lib/x86_64-linux-gnu
