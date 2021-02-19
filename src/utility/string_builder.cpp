@@ -61,3 +61,10 @@ const char* toString(StringBuilder* sb) {
 }
 
 
+extern "C" void freeString(const char* str) {
+    if (str != nullptr) {
+        free((void*)str);
+    }
+}
+
+
