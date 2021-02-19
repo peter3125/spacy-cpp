@@ -11,6 +11,7 @@
 
 #include <memory>
 #include <string>
+#include <stdexcept>
 
 #include "attrs.h"
 #include "nlp.h"
